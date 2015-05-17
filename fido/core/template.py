@@ -43,8 +43,9 @@ class BaseTemplate(object):
                     data = fd.read()
 
                 for token, value in vars.iteritems():
-                    print "  - Updating token '%s' in %s ..." % ( token, filename )
-                    data = data.replace( token, value )
+                    if token in data:
+                        print "  - Updating variable '%s' in %s ..." % ( token, filename )
+                        data = data.replace( token, value )
 
                 with open(filename, 'wt') as fd:
                     fd.write(data)
