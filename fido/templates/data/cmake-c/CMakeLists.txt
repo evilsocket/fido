@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
-project(#PROJECT_NAME#)
+project(#PROJECT_NAME# C)
 
 set( PROJECT "#PROJECT_NAME#" )
 
