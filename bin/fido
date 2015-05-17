@@ -27,7 +27,11 @@ import fido
 TEMPLATES = []
 BASEPATH = os.path.dirname( fido.__file__ )
 
-for file in glob.glob( os.path.join( BASEPATH, "templates/*.py" ) ):
+# keep the alphabetical order!
+files = glob.glob( os.path.join( BASEPATH, "templates/*.py" ) )
+files.sort()
+
+for file in files:
     if file.endswith( '__init__.py' ):
         continue
 
