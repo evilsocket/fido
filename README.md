@@ -13,20 +13,23 @@ Usage
 ==
 
     Usage: fido <action> [template] (path)
-    
+
     Available actions:
-    
-                   help : Print the usage menu.
-                 create : Create a project with the specified template.
-                  build : Build the current project.
-                  clean : Clean built files for the current project.
-    
+
+                    help : Print the usage menu.
+                  create : Create a project with the specified template, requires a template and a path.
+                   build : Build the current project.
+                   clean : Clean built files for the current project.
+
     Available templates:
-    
-               make-cpp : Create a C++ project based on Makefile.
-         android-make-c : Create a native Android C project based on Makefile.
-                 make-c : Create a C project based on Makefile.
+
+                make-cpp : Create a C++ project based on Makefile.
+          android-make-c : Create a native Android C project based on Makefile.
+                  make-c : Create a C project based on Makefile.
+               cmake-cpp : Create a C++ project based on CMake.
+                 cmake-c : Create a C project based on CMake.
         android-make-cpp : Create a native Android C++ project based on Makefile.
+
 
 Example
 ==
