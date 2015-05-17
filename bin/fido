@@ -79,7 +79,10 @@ def get_project_template():
         quit()
 
     with open( '.fido', 'rt' ) as fd:
-        template = fd.read().strip()
+        for line in fd:
+            if line[0] == "#":
+                continue
+            template = line.strip()
 
     if template not in TEMPLATES:
         print "[!] Invalid template specified in .fido file.\n"

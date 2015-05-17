@@ -35,6 +35,7 @@ class BaseTemplate(object):
         print "  - Creating project '.fido' file ..."
 
         with open( os.path.join( path, '.fido' ), 'w+t' ) as fd:
+            fd.write( "# Do not remove this file, check out FIDO at https://github.com/evilsocket/fido\n" )
             fd.write( self.get_name() )
 
         vars = {
