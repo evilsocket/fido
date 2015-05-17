@@ -32,6 +32,11 @@ class BaseTemplate(object):
     def do_create(self, path):
         shutil.copytree( self.mypath, path )
 
+        print "  - Creating project '.fido' file ..."
+
+        with open( os.path.join( path, '.fido' ), 'w+t' ) as fd:
+            fd.write( self.get_name() )
+
         vars = {
             "#PROJECT_NAME#" : os.path.basename(path)
         }
