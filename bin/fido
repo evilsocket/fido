@@ -1,0 +1,114 @@
+#!/usr/bin/python
+# This file is part of Fido.
+#
+# Copyright(c) 2015 Simone Margaritelli
+# evilsocket@gmail.com
+# http://www.evilsocket.net
+#
+# This file may be licensed under the terms of of the
+# GNU General Public License Version 2 (the ``GPL'').
+#
+# Software distributed under the License is distributed
+# on an ``AS IS'' basis, WITHOUT WARRANTY OF ANY KIND, either
+# express or implied. See the GPL for the specific language
+# governing rights and limitations.
+#
+# You should have received a copy of the GPL along with this
+# program. If not, go to http://www.gnu.org/licenses/gpl.html
+# or write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+import sys
+import os
+import collections
+import glob
+import imp
+import fido
+
+TEMPLATES = []
+BASEPATH = os.path.dirname( fido.__file__ )
+
+for file in glob.glob( os.path.join( BASEPATH, "templates/*.py" ) ):
+    if file.endswith( '__init__.py' ):
+        continue
+
+    name = os.path.basename(file).replace(".py", "")
+    tpl = imp.load_source( name, file ).template_load()
+    TEMPLATES.append( ( tpl.get_name(), tpl ) )
+
+TEMPLATES = collections.OrderedDict(TEMPLATES)
+
+ACTIONS = collections.OrderedDict((
+    ( "help",   "Print the usage menu." ),
+    ( "create", "Create a project with the specified template." ),
+    ( "build",  "Build the current project." ),
+    ( "clean",  "Clean built files for the current project." )
+))
+
+def usage():
+    print "Usage: fido <action> [template] (path)"
+
+    print "\nAvailable actions:\n"
+    for name, desc in ACTIONS.iteritems():
+        print "\t%15s : %s" % ( name, desc )
+
+    print "\nAvailable templates:\n"
+    for name, template in TEMPLATES.iteritems():
+        print "\t%15s : %s" % ( template.get_name(), template.get_description() )
+
+    quit()
+
+def get_project_template():
+    if not os.path.isfile('.fido'):
+        print "[!] Not a fido project."
+        quit()
+
+    with open( '.fido', 'rt' ) as fd:
+        template = fd.read().strip()
+
+    if template not in TEMPLATES:
+        print "[!] Invalid template specified in .fido file.\n"
+        quit()
+
+    return template
+
+def main():
+    if len(sys.argv) < 2:
+        usage()
+
+    action = sys.argv[1]
+    if action not in ACTIONS:
+        print "[!] Invalid action specified.\n"
+        usage()
+
+    if action == "help":
+        usage()
+
+    elif action == "create":
+        if len(sys.argv) < 4:
+            print "[!] No template or name specified.\n"
+            usage()
+
+        template = sys.argv[2]
+        if template not in TEMPLATES:
+            print "[!] Invalid template specified.\n"
+            usage()
+
+        name = sys.argv[3]
+        if os.path.exists(name):
+            print "[!] Path '%s' already exists." % name
+            quit()
+
+        print "[-] Creating project '%s' with template '%s' ..." % ( name, template )
+
+        TEMPLATES[template].do_create(name)
+
+    elif action == "build":
+        template = get_project_template()
+        TEMPLATES[template].do_build()
+
+    elif action == "clean":
+        template = get_project_template()
+        TEMPLATES[template].do_clean()
+
+if __name__ == '__main__':
+    main()
