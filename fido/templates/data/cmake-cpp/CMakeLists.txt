@@ -7,9 +7,9 @@ set( PROJECT "#PROJECT_NAME#" )
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
-set( CMAKE_C_FLAGS "-Wall" )
+set( CMAKE_CPP_FLAGS "-Wall" )
 
-file( GLOB MAIN_SOURCES src/*.c )
+file( GLOB MAIN_SOURCES src/*.cpp )
 
 add_executable( ${PROJECT} ${MAIN_SOURCES} )
 

@@ -19,12 +19,12 @@
 from fido.core.template import BaseTemplate
 import os
 
-class CMakeC(BaseTemplate):
+class CMakeCPP(BaseTemplate):
     def get_name(self):
-        return "cmake-c"
+        return "cmake-cpp"
 
     def get_description(self):
-        return "Create a C project based on CMake."
+        return "Create a C++ project based on CMake."
 
     def do_build(self):
         if not os.path.isfile("Makefile"):
@@ -35,8 +35,8 @@ class CMakeC(BaseTemplate):
     def do_clean(self):
         if not os.path.isfile("Makefile"):
             os.system( "cmake ." )
-
+            
         os.system("make clean")
 
 def template_load():
-    return CMakeC()
+    return CMakeCPP()
