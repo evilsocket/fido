@@ -23,13 +23,12 @@ Usage
 
     Available templates:
 
-                make-cpp : Create a C++ project based on Makefile.
           android-make-c : Create a native Android C project based on Makefile.
-                  make-c : Create a C project based on Makefile.
-               cmake-cpp : Create a C++ project based on CMake.
-                 cmake-c : Create a C project based on CMake.
         android-make-cpp : Create a native Android C++ project based on Makefile.
-
+                 cmake-c : Create a C project based on CMake.
+               cmake-cpp : Create a C++ project based on CMake.
+                  make-c : Create a C project based on Makefile.
+                make-cpp : Create a C++ project based on Makefile.
 
 Example
 ==
