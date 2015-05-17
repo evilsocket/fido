@@ -20,16 +20,29 @@ from fido.core.template import BaseTemplate
 import os
 
 class AndroidMakeCPP(BaseTemplate):
+    def _check_ndk(self):
+        ndk_path = os.path.join( os.environ['HOME'], 'android/ndk' )
+
+        if not os.path.isdir(ndk_path ):
+            print ( "[!] WARNING: You don't have the NDK installed on '%s', either install it or make sure"  % ndk_path ) + \
+                    "to override the environment variables ANDROID_* in your Makefile before compiling."
+
     def get_name(self):
         return "android-make-cpp"
 
     def get_description(self):
         return "Create a native Android C++ project based on Makefile."
 
+    def do_create(self, path):
+        self._check_ndk()
+        super( AndroidMakeCPP, self).do_create(path)
+
     def do_build(self):
+        self._check_ndk()
         os.system("make")
 
     def do_clean(self):
+        self._check_ndk()
         os.system("make clean")
 
 def template_load():
