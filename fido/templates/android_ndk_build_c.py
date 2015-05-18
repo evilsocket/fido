@@ -27,9 +27,6 @@ class AndroidNdkBuildC(BaseTemplate):
     def get_description(self):
         return "Create a native Android C project based on the ndk-build utility."
 
-    def do_create(self, path):
-        super( AndroidNdkBuildC, self ).do_create(path)
-
     def do_build(self):
         os.system("ndk-build")
 
