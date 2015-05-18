@@ -16,6 +16,7 @@
 # program. If not, go to http://www.gnu.org/licenses/gpl.html
 # or write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+from fido.core.log import Log
 import os
 import shutil
 
@@ -35,7 +36,7 @@ class BaseTemplate(object):
     def do_create(self, path):
         shutil.copytree( self.mypath, path )
 
-        print "  - Creating project '.fido' file ..."
+        Log.d( "  Creating project '.fido' file ..." )
 
         with open( os.path.join( path, '.fido' ), 'w+t' ) as fd:
             fd.write( "# Do not remove this file, check out FIDO at https://github.com/evilsocket/fido\n" )
@@ -51,13 +52,13 @@ class BaseTemplate(object):
 
                 for token, value in self.vars.iteritems():
                     if token in data:
-                        print "  - Updating variable '%s' in %s ..." % ( token, filename )
+                        Log.d( "  Updating variable '%s' in %s ..." % ( token, filename ) )
                         data = data.replace( token, value )
 
                 with open(filename, 'wt') as fd:
                     fd.write(data)
 
-        print "[-] DONE\n"
+        Log.i( "DONE\n" )
 
     def do_build(self):
         raise "Called do_build of base class!"

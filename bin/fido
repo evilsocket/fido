@@ -23,6 +23,7 @@ import collections
 import glob
 import imp
 import fido
+from fido.core.log import Log
 
 TEMPLATES = []
 BASEPATH = os.path.dirname( fido.__file__ )
@@ -56,7 +57,7 @@ def get_pad(l):
     return pad
 
 def usage():
-    print "Usage: fido <action> [template] (path)"
+    print "\nUsage: fido <action> [template] (path)"
 
     a_pad = get_pad(ACTIONS)
     t_pad = get_pad(TEMPLATES)
@@ -75,7 +76,7 @@ def usage():
 
 def get_project_template():
     if not os.path.isfile('.fido'):
-        print "[!] Not a fido project."
+        Log.e( "Not a fido project." )
         quit()
 
     with open( '.fido', 'rt' ) as fd:
@@ -85,7 +86,7 @@ def get_project_template():
             template = line.strip()
 
     if template not in TEMPLATES:
-        print "[!] Invalid template specified in .fido file.\n"
+        Log.e( "Invalid template specified in .fido file." )
         quit()
 
     return template
@@ -96,7 +97,7 @@ def main():
 
     action = sys.argv[1]
     if action not in ACTIONS:
-        print "[!] Invalid action specified.\n"
+        Log.e( "Invalid action specified." )
         usage()
 
     if action == "help":
@@ -104,20 +105,20 @@ def main():
 
     elif action == "create":
         if len(sys.argv) < 4:
-            print "[!] No template or name specified.\n"
+            Log.e( "No template or name specified." )
             usage()
 
         template = sys.argv[2]
         if template not in TEMPLATES:
-            print "[!] Invalid template specified.\n"
+            Log.e( "Invalid template specified." )
             usage()
 
         name = sys.argv[3]
         if os.path.exists(name):
-            print "[!] Path '%s' already exists." % name
+            Log.e( "Path '%s' already exists." % name )
             quit()
 
-        print "[-] Creating project '%s' with template '%s' ..." % ( name, template )
+        Log.i( "Creating project '%s' with template '%s' ..." % ( name, template ) )
 
         TEMPLATES[template].do_create(name)
 

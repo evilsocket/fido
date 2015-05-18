@@ -17,11 +17,14 @@
 # or write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 from fido.core.template import BaseTemplate
+from fido.core.log import Log
+
 import os
 import sys
 
 class AndroidMakeC(BaseTemplate):
     def _check_ndk(self):
+        ndk_arg  = False
         ndk_path = os.path.join( os.environ['HOME'], 'android/ndk' )
 
         argc = len(sys.argv)
@@ -29,16 +32,21 @@ class AndroidMakeC(BaseTemplate):
             arg = sys.argv[i]
             if arg == "--NDK" and i < argc - 1:
                 ndk_path = sys.argv[i + 1]
+                ndk_arg = True
                 break
 
             elif arg.startswith("--NDK="):
                 arg, val = arg.split("=")
                 ndk_path = val.strip()
+                ndk_arg = True
                 break
 
+        if not ndk_arg:
+            Log.w( "WARNING: No --NDK argument detected, using default NDK path ( ~/android/ndk )." )
+
         if not os.path.isdir(ndk_path):
-            print ( "[!] WARNING: You don't have the NDK installed on '%s', either install it or make sure"  % ndk_path ) + \
-                    "to override the environment variables ANDROID_* in your Makefile before compiling."
+            Log.w( ( "WARNING: You don't have the NDK installed on '%s', either install it or make sure "  % ndk_path ) + \
+                   "to override the environment variables ANDROID_* in your Makefile before compiling." )
 
         return ndk_path
 
