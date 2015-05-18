@@ -9,15 +9,10 @@ Installation
     python setup.py build
     sudo python setup.py install
 
-Usage
-==
-
-![usage](https://github.com/evilsocket/fido/raw/master/usage.png)
-
 Example
 ==
 
-![example](https://github.com/evilsocket/fido/raw/master/example.png)
+[![asciicast](https://asciinema.org/a/8te8gnp36ii7iypj2j1eg5b6m.png)](https://asciinema.org/a/8te8gnp36ii7iypj2j1eg5b6m)
 
 License
 ==
