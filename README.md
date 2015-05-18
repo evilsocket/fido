@@ -33,7 +33,7 @@ Usage
 Example
 ==
 
-[screenshot](https://github.com/evilsocket/fido/raw/master/screenshot.png)
+![screenshot](https://github.com/evilsocket/fido/raw/master/screenshot.png)
 
 License
 ==
