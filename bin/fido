@@ -30,7 +30,8 @@ ACTIONS = collections.OrderedDict((
     ( "help",   "Print the usage menu." ),
     ( "create", "Create a project with the specified template, requires a template and a path." ),
     ( "build",  "Build the current project." ),
-    ( "clean",  "Clean built files for the current project." )
+    ( "clean",  "Clean built files for the current project." ),
+    ( "reset",  "Available only for certain templates, remote every build generated file." )
 ))
 
 def get_pad(l):
@@ -113,6 +114,10 @@ def main():
     elif action == "clean":
         template = get_project_template()
         TEMPLATES[template].do_clean()
+
+    elif action == "reset":
+        template = get_project_template()
+        TEMPLATES[template].do_reset()
 
 if __name__ == '__main__':
     main()

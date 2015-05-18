@@ -65,3 +65,6 @@ class BaseTemplate(object):
 
     def do_clean(self):
         raise "Called do_clean of base class!"
+
+    def do_reset(self):
+        Log.w( "Action not implemented for this template." )
