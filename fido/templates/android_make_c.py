@@ -61,11 +61,9 @@ class AndroidMakeC(BaseTemplate):
         super( AndroidMakeC, self ).do_create(path)
 
     def do_build(self):
-        self._check_ndk()
         os.system("make")
 
     def do_clean(self):
-        self._check_ndk()
         os.system("make clean")
 
 def template_load():
