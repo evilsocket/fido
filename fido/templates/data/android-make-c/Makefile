@@ -4,7 +4,7 @@ MAIN_OBJS = $(MAIN_SRCS:.c=.o)
 
 # you can override this
 ifndef ANDROID_SYSROOT
-SYSROOT = $(HOME)/android/ndk/platforms/android-18/arch-arm/
+SYSROOT = #NDK_PATH#/platforms/android-18/arch-arm/
 else
 SYSROOT = $(ANDROID_SYSROOT)
 endif

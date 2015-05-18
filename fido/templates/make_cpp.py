@@ -16,27 +16,14 @@
 # program. If not, go to http://www.gnu.org/licenses/gpl.html
 # or write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-from fido.core.template import BaseTemplate
-import os
+from fido.templates.make_c import MakeC
 
-class CMakeCPP(BaseTemplate):
+class MakeCPP(MakeC):
     def get_name(self):
-        return "cmake-cpp"
+        return "make-cpp"
 
     def get_description(self):
-        return "Create a C++ project based on CMake."
-
-    def do_build(self):
-        if not os.path.isfile("Makefile"):
-            os.system( "cmake ." )
-
-        os.system("make")
-
-    def do_clean(self):
-        if not os.path.isfile("Makefile"):
-            os.system( "cmake ." )
-            
-        os.system("make clean")
+        return "Create a C++ project based on Makefile."
 
 def template_load():
-    return CMakeCPP()
+    return MakeCPP()

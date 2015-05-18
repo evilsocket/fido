@@ -22,6 +22,9 @@ import shutil
 class BaseTemplate(object):
     def __init__(self):
         self.mypath = os.path.realpath( os.path.join( os.path.dirname( os.path.realpath(__file__) ), '../templates/data', self.get_name() ) )
+        self.vars   = {
+            "#PROJECT_NAME#" : ""
+        }
 
     def get_name(self):
         raise "Called get_name of base class!"
@@ -38,9 +41,7 @@ class BaseTemplate(object):
             fd.write( "# Do not remove this file, check out FIDO at https://github.com/evilsocket/fido\n" )
             fd.write( self.get_name() )
 
-        vars = {
-            "#PROJECT_NAME#" : os.path.basename(path)
-        }
+        self.vars["#PROJECT_NAME#"] = os.path.basename(path)
 
         for root, dirnames, filenames in os.walk( path ):
             for fname in filenames:
@@ -48,7 +49,7 @@ class BaseTemplate(object):
                 with open(filename, 'rt') as fd:
                     data = fd.read()
 
-                for token, value in vars.iteritems():
+                for token, value in self.vars.iteritems():
                     if token in data:
                         print "  - Updating variable '%s' in %s ..." % ( token, filename )
                         data = data.replace( token, value )

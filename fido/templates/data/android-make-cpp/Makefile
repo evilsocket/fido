@@ -4,19 +4,19 @@ MAIN_OBJS = $(MAIN_SRCS:.cpp=.o)
 
 # you can override this
 ifndef ANDROID_SYSROOT
-SYSROOT = $(HOME)/android/ndk/platforms/android-18/arch-arm/
+SYSROOT = #NDK_PATH#/platforms/android-18/arch-arm/
 else
 SYSROOT = $(ANDROID_SYSROOT)
 endif
 
 ifndef ANDROID_STLPORT_INCLUDES
-STLPORT_INC = $(HOME)/android/ndk/sources/cxx-stl/stlport/stlport/
+STLPORT_INC = #NDK_PATH#/sources/cxx-stl/stlport/stlport/
 else
 STLPORT_INC = $(ANDROID_STLPORT_INCLUDES)
 endif
 
 ifndef ANDROID_STLPORT_LIBS
-STLPORT_LIBS = $(HOME)/android/ndk/sources/cxx-stl/stlport/libs/armeabi/
+STLPORT_LIBS = #NDK_PATH#/sources/cxx-stl/stlport/libs/armeabi/
 else
 STLPORT_LIBS = $(ANDROID_STLPORT_LIBS)
 endif

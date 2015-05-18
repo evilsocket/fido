@@ -18,24 +18,39 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 from fido.core.template import BaseTemplate
 import os
+import sys
 
-class AndroidMakeCPP(BaseTemplate):
+class AndroidMakeC(BaseTemplate):
     def _check_ndk(self):
         ndk_path = os.path.join( os.environ['HOME'], 'android/ndk' )
 
-        if not os.path.isdir(ndk_path ):
+        argc = len(sys.argv)
+        for i in range(1,argc):
+            arg = sys.argv[i]
+            if arg == "--NDK" and i < argc - 1:
+                ndk_path = sys.argv[i + 1]
+                break
+
+            elif arg.startswith("--NDK="):
+                arg, val = arg.split("=")
+                ndk_path = val.strip()
+                break
+
+        if not os.path.isdir(ndk_path):
             print ( "[!] WARNING: You don't have the NDK installed on '%s', either install it or make sure"  % ndk_path ) + \
                     "to override the environment variables ANDROID_* in your Makefile before compiling."
 
+        return ndk_path
+
     def get_name(self):
-        return "android-make-cpp"
+        return "android-make-c"
 
     def get_description(self):
-        return "Create a native Android C++ project based on Makefile."
+        return "Create a native Android C project based on Makefile."
 
     def do_create(self, path):
-        self._check_ndk()
-        super( AndroidMakeCPP, self).do_create(path)
+        self.vars["#NDK_PATH#"] = self._check_ndk()
+        super( AndroidMakeC, self ).do_create(path)
 
     def do_build(self):
         self._check_ndk()
@@ -46,4 +61,4 @@ class AndroidMakeCPP(BaseTemplate):
         os.system("make clean")
 
 def template_load():
-    return AndroidMakeCPP()
+    return AndroidMakeC()
