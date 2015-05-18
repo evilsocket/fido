@@ -39,7 +39,9 @@ class CMakeC(BaseTemplate):
         os.system("make clean")
 
     def do_reset(self):
-        os.system("make clean") 
+        if os.path.isfile("Makefile"):
+            os.system("make clean")
+
         os.system( 'find . -name "CMakeFiles" -or -name "CMakeCache.txt" -or -name "cmake_install.cmake" -or -name "Makefile" | xargs rm -rf' )
 
 def template_load():
