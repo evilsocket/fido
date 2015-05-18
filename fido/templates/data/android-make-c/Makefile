@@ -15,7 +15,12 @@ CFLAGS  = -I. -Iinclude -fPIC -fPIE -pie --sysroot $(SYSROOT)
 LDFLAGS = -llog
 
 all: $(MAIN_OBJS)
-	@$(CC) $(CFLAGS) -o $(TARGET) $(MAIN_OBJS) $(LDFLAGS) 
+	@$(CC) $(CFLAGS) -o $(TARGET) $(MAIN_OBJS) $(LDFLAGS)
+
+run: all
+	@adb push #PROJECT_NAME# /data/local/tmp/
+	@adb shell chmod 777 /data/local/tmp/#PROJECT_NAME#
+	@adb shell /data/local/tmp/#PROJECT_NAME#
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c -o $@ $<

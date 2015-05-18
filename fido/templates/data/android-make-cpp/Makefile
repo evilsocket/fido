@@ -29,6 +29,11 @@ LDFLAGS  = -llog -lstlport_static
 all: $(MAIN_OBJS)
 	@$(CXX) $(CXXFLAGS) -o $(TARGET) $(MAIN_OBJS) $(LDFLAGS)
 
+run: all
+	@adb push #PROJECT_NAME# /data/local/tmp/
+	@adb shell chmod 777 /data/local/tmp/#PROJECT_NAME#
+	@adb shell /data/local/tmp/#PROJECT_NAME#
+
 %.o: %.cpp
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
