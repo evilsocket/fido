@@ -33,26 +33,7 @@ Usage
 Example
 ==
 
-    # fido create android-make-cpp android-sample --NDK=/opt/ndk
-    
-    [-] Creating project 'android-sample' with template 'android-make-cpp' ...
-      - Creating project '.fido' file ...
-      - Updating variable '#PROJECT_NAME#' in android-sample/Makefile ...
-      - Updating variable '#NDK_PATH#' in android-sample/Makefile ...
-      - Updating variable '#PROJECT_NAME#' in android-sample/.gitignore ...
-      - Updating variable '#PROJECT_NAME#' in android-sample/README.md ...
-      - Updating variable '#PROJECT_NAME#' in android-sample/src/main.cpp ...
-    [-] DONE
-
-    # cd android-sample
-    # ls
-    
-    include  Makefile  README.md  src
-
-    # fido build
-    # file android-sample
-    
-    android-sample: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically linked (uses shared libs), not stripped
+[screenshot](https://github.com/evilsocket/fido/raw/master/screenshot.png)
 
 License
 ==
