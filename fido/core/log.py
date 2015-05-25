@@ -40,3 +40,8 @@ class Log:
     @staticmethod
     def e( msg ):
         print (Log.ERROR + "[E] %s" + Log.ENDC) % msg
+
+    @staticmethod
+    def fatal( msg ):
+        Log.e(msg)
+        quit()

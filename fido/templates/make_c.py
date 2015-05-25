@@ -32,5 +32,6 @@ class MakeC(BaseTemplate):
     def do_clean(self):
         os.system("make clean")
 
+
 def template_load():
     return MakeC()

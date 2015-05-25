@@ -1,5 +1,5 @@
 TARGET    = #PROJECT_NAME#
-MAIN_SRCS = src/main.cpp
+MAIN_SRCS = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
 MAIN_OBJS = $(MAIN_SRCS:.cpp=.o)
 
 # you can override this

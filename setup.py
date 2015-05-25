@@ -17,6 +17,8 @@
 # or write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 from setuptools import setup, find_packages
+from fido.version import VERSION
+
 import os
 
 def get_data_files():
@@ -34,7 +36,7 @@ except:
   long_description = 'Fido - A minimalistic C/C++ project generator.'
 
 setup( name                 = 'fido',
-       version              = '1.0',
+       version              = VERSION,
        description          = long_description,
        long_description     = long_description,
        author               = 'Simone Margaritelli',

@@ -1,5 +1,5 @@
 TARGET    = #PROJECT_NAME#
-MAIN_SRCS = src/main.c
+MAIN_SRCS = $(wildcard src/*.c) $(wildcard src/*/*.c)
 MAIN_OBJS = $(MAIN_SRCS:.c=.o)
 
 CC		  = gcc

@@ -3,7 +3,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := #PROJECT_NAME#
-LOCAL_SRC_FILES := src/main.c
+LOCAL_SRC_FILES := $(wildcard src/*.c) $(wildcard src/*/*.c)
 
 LOCAL_C_INCLUDES += .
 LOCAL_C_INCLUDES += include

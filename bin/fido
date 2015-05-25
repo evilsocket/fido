@@ -22,6 +22,7 @@ import os
 import collections
 from fido.core.log import Log
 from fido.core.loader import Loader
+from fido.version import VERSION
 
 loader = Loader()
 
@@ -29,6 +30,7 @@ TEMPLATES = loader.templates
 ACTIONS = collections.OrderedDict((
     ( "help",   "Print the usage menu." ),
     ( "create", "Create a project with the specified template, requires a template and a path." ),
+    ( "add",    "Add one or multiple files to the proper folders by their extensions." ),
     ( "build",  "Build the current project." ),
     ( "clean",  "Clean built files for the current project." ),
     ( "reset",  "Available only for certain templates, remote every build generated file." )
@@ -42,6 +44,8 @@ def get_pad(l):
     return pad
 
 def usage():
+    print "fido %s - (C) 2015 Simone Margaritelli" % VERSION
+    print "Released under the GNU GPL v3."
     print "\nUsage: fido <action> [template] (path)"
 
     a_pad = get_pad(ACTIONS)
@@ -56,13 +60,32 @@ def usage():
     for name, template in TEMPLATES.iteritems():
         print ( "\t%" + pad + "s : %s" ) % ( template.get_name(), template.get_description() )
 
+    print "\nExample:\n"
+
+    print "\t$ fido create make-c sample-project\n"
+    print "\t[I] Creating project 'sample-project' with template 'make-c' ..."
+    print "\t[D]   Creating project '.fido' file ..."
+    print "\t[D]   Updating variable '#PROJECT_NAME#' in sample-project/Makefile ..."
+    print "\t[D]   Updating variable '#PROJECT_NAME#' in sample-project/.gitignore ..."
+    print "\t[D]   Updating variable '#PROJECT_NAME#' in sample-project/README.md ..."
+    print "\t[D]   Updating variable '#PROJECT_NAME#' in sample-project/src/main.c ..."
+    print "\t[I] DONE\n"
+    print "\t$ cd sample-project"
+    print "\t$ fido add io.h io.c networking.h networking.c\n"
+    print "\t[I] Creating 'include/io.h' ..."
+    print "\t[I] Creating 'src/io.c' ..."
+    print "\t[I] Creating 'include/networking.h' ..."
+    print "\t[I] Creating 'src/networking.c' ...\n"
+    print "\t$ fido build"
+    print "\t$ ./sample-project\n"
+    print "\tHello World from sample-project !"
+
     print
     quit()
 
 def get_project_template():
     if not os.path.isfile('.fido'):
-        Log.e( "Not a fido project." )
-        quit()
+        Log.fatal( "Not a fido project." )
 
     with open( '.fido', 'rt' ) as fd:
         for line in fd:
@@ -71,8 +94,7 @@ def get_project_template():
             template = line.strip()
 
     if template not in TEMPLATES:
-        Log.e( "Invalid template specified in .fido file." )
-        quit()
+        Log.fatal( "Invalid template specified in .fido file." )
 
     return template
 
@@ -100,8 +122,7 @@ def main():
 
         name = sys.argv[3]
         if os.path.exists(name):
-            Log.e( "Path '%s' already exists." % name )
-            quit()
+            Log.fatal( "Path '%s' already exists." % name )
 
         Log.i( "Creating project '%s' with template '%s' ..." % ( name, template ) )
 
@@ -110,6 +131,10 @@ def main():
     elif action == "build":
         template = get_project_template()
         TEMPLATES[template].do_build()
+
+    elif action == "add":
+        template = get_project_template()
+        TEMPLATES[template].do_add()
 
     elif action == "clean":
         template = get_project_template()

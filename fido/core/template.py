@@ -19,6 +19,7 @@
 from fido.core.log import Log
 import os
 import shutil
+import sys
 
 class BaseTemplate(object):
     def __init__(self):
@@ -68,3 +69,36 @@ class BaseTemplate(object):
 
     def do_reset(self):
         Log.w( "Action not implemented for this template." )
+
+    def do_add(self):
+        if len(sys.argv) < 3:
+            Log.fatal( "Usage: fido add <filename>( <filename> <filename> ... )" )
+
+        for i in range(2, len(sys.argv)):
+            filename  = sys.argv[i]
+            name, ext = os.path.splitext( filename )
+            ext = ext.lower()
+
+            if ext in ( '.h', '.hpp' ):
+                destination = 'include'
+
+            elif ext in ( '.c', '.cpp' ):
+                destination = 'src'
+
+            else:
+                destination = '.'
+
+            filename = os.path.join( destination, filename )
+            dirname  = os.path.dirname( filename )
+
+            if os.path.isfile(filename):
+                Log.fatal( "File '%s' already exists." % filename )
+
+            Log.i( "Creating '%s' ..." % filename )
+
+            # make sure every folder is created
+            if not os.path.isdir(dirname):
+                os.makedirs( dirname )
+
+            # 'touch' it
+            open( filename, 'a').close()
