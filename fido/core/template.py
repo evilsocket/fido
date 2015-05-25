@@ -20,12 +20,18 @@ from fido.core.log import Log
 import os
 import shutil
 import sys
+import time
+import re
 
 class BaseTemplate(object):
     def __init__(self):
         self.mypath = os.path.realpath( os.path.join( os.path.dirname( os.path.realpath(__file__) ), '../templates/data', self.get_name() ) )
         self.vars   = {
-            "#PROJECT_NAME#" : ""
+            "#PROJECT_NAME#" : "",
+            "#BASE_NAME#" : "",
+            "#FILE_SLUG#" : "",
+            "#DATE#" : time.strftime('%b %m, %Y'),
+            "#USER_NAME#" : os.environ['USER']
         }
 
     def get_name(self):
@@ -33,6 +39,21 @@ class BaseTemplate(object):
 
     def get_description(self):
         raise "Called get_description of base class!"
+
+    def _update_template_data(self, filename):
+        self.vars["#BASE_NAME#"] = os.path.basename(filename)
+        self.vars["#FILE_SLUG#"] = re.sub( r'[^a-z0-9]+', '_', self.vars["#BASE_NAME#"] ).upper()
+
+        with open(filename, 'rt') as fd:
+            data = fd.read()
+
+        for token, value in self.vars.iteritems():
+            if token in data:
+                Log.d( "  Updating variable '%s' in %s ..." % ( token, filename ) )
+                data = data.replace( token, value )
+
+        with open(filename, 'wt') as fd:
+            fd.write(data)
 
     def do_create(self, path):
         shutil.copytree( self.mypath, path )
@@ -48,16 +69,7 @@ class BaseTemplate(object):
         for root, dirnames, filenames in os.walk( path ):
             for fname in filenames:
                 filename = os.path.join( root, fname )
-                with open(filename, 'rt') as fd:
-                    data = fd.read()
-
-                for token, value in self.vars.iteritems():
-                    if token in data:
-                        Log.d( "  Updating variable '%s' in %s ..." % ( token, filename ) )
-                        data = data.replace( token, value )
-
-                with open(filename, 'wt') as fd:
-                    fd.write(data)
+                self._update_template_data(filename)
 
         Log.i( "DONE\n" )
 
@@ -100,5 +112,17 @@ class BaseTemplate(object):
             if not os.path.isdir(dirname):
                 os.makedirs( dirname )
 
-            # 'touch' it
-            open( filename, 'a').close()
+            tpl_name = os.path.join( os.path.expanduser('~'), ".fido/template%s" % ext )
+
+            # check if a user template is available
+            if os.path.isfile( tpl_name ):
+                Log.i( "Using user template '%s' ..." % tpl_name )
+                shutil.copy( tpl_name, filename )
+
+                self.vars["#PROJECT_NAME#"] = os.path.basename( os.getcwd() )
+
+                self._update_template_data(filename)
+
+            else:
+                # 'touch' it
+                open( filename, 'a').close()
