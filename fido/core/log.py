@@ -25,21 +25,24 @@ class Log:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
 
+    PRINT_DEBUG_MESSAGES = False
+
     @staticmethod
     def d( msg ):
-        print "[D] %s" % msg
+        if Log.PRINT_DEBUG_MESSAGES:
+            print "[DEBUG] %s" % msg
 
     @staticmethod
     def i( msg ):
-        print (Log.BOLD + "[I] %s" + Log.ENDC) % msg
+        print (Log.BOLD + "%s" + Log.ENDC) % msg
 
     @staticmethod
     def w( msg ):
-        print (Log.WARNING + "[W] %s" + Log.ENDC) % msg
+        print (Log.WARNING + "[WARNING] %s" + Log.ENDC) % msg
 
     @staticmethod
     def e( msg ):
-        print (Log.ERROR + "[E] %s" + Log.ENDC) % msg
+        print (Log.ERROR + "[ERROR] %s" + Log.ENDC) % msg
 
     @staticmethod
     def fatal( msg ):

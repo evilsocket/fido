@@ -71,8 +71,6 @@ class BaseTemplate(object):
                 filename = os.path.join( root, fname )
                 self._update_template_data(filename)
 
-        Log.i( "DONE\n" )
-
     def do_build(self):
         raise "Called do_build of base class!"
 

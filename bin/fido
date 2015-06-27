@@ -28,12 +28,13 @@ loader = Loader()
 
 TEMPLATES = loader.templates
 ACTIONS = collections.OrderedDict((
-    ( "help",   "Print the usage menu." ),
-    ( "create", "Create a project with the specified template, requires a template and a path." ),
-    ( "add",    "Add one or multiple files to the proper folders by their extensions." ),
-    ( "build",  "Build the current project." ),
-    ( "clean",  "Clean built files for the current project." ),
-    ( "reset",  "Available only for certain templates, remote every build generated file." )
+    ( "help",    "Print the usage menu." ),
+    ( "create",  "Create a project with the specified template, requires a template and a path." ),
+    ( "add",     "Add one or multiple files to the proper folders by their extensions." ),
+    ( "build",   "Build the current project." ),
+    ( "clean",   "Clean built files for the current project." ),
+    ( "rebuild", "Clean + Build." ),
+    ( "reset",   "Available only for certain templates, remote every build generated file." )
 ))
 
 def get_pad(l):
@@ -63,20 +64,19 @@ def usage():
     print "\nExample:\n"
 
     print "\t$ fido create make-c sample-project\n"
-    print "\t[I] Creating project 'sample-project' with template 'make-c' ..."
-    print "\t[D]   Creating project '.fido' file ..."
-    print "\t[D]   Updating variable '#PROJECT_NAME#' in sample-project/Makefile ..."
-    print "\t[D]   Updating variable '#PROJECT_NAME#' in sample-project/.gitignore ..."
-    print "\t[D]   Updating variable '#PROJECT_NAME#' in sample-project/README.md ..."
-    print "\t[D]   Updating variable '#PROJECT_NAME#' in sample-project/src/main.c ..."
-    print "\t[I] DONE\n"
+    Log.i( "\tCreating project 'sample-project' with template 'make-c' ...\n" )
+
     print "\t$ cd sample-project"
     print "\t$ fido add io.h io.c networking.h networking.c\n"
-    print "\t[I] Creating 'include/io.h' ..."
-    print "\t[I] Creating 'src/io.c' ..."
-    print "\t[I] Creating 'include/networking.h' ..."
-    print "\t[I] Creating 'src/networking.c' ...\n"
+
+    Log.i( "\tCreating 'include/io.h' ..." )
+    Log.i( "\tCreating 'src/io.c' ..." )
+    Log.i( "\tCreating 'include/networking.h' ..." )
+    Log.i( "\tCreating 'src/networking.c' ...\n" )
+
     print "\t$ fido build"
+    Log.i( "\tBuilding ...\n" )
+
     print "\t$ ./sample-project\n"
     print "\tHello World from sample-project !"
 
@@ -129,7 +129,16 @@ def main():
         TEMPLATES[template].do_create(name)
 
     elif action == "build":
+        Log.i( "Building ..." )
+
         template = get_project_template()
+        TEMPLATES[template].do_build()
+
+    elif action == "rebuild":
+        Log.i( "Rebuilding ..." )
+
+        template = get_project_template()
+        TEMPLATES[template].do_clean()
         TEMPLATES[template].do_build()
 
     elif action == "add":
