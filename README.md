@@ -1,7 +1,8 @@
 FIDO
 ==
 
-Fido is a minimalistic C/C++ project generator supporting various templates.
+Fido is a minimalistic, IDE agnostic, C/C++ project generator supporting various toolchains 
+and build systems.
 
 Installation
 ==
