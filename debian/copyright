@@ -3,7 +3,7 @@ Upstream-Name: fido
 Source: https://github.com/evilsocket/fido.git
 
 Files: *
-Copyright: 2015 Simone Margaritelli
+Copyright: 2015 Simone Margaritelli (evilsocket) <evilsocket@gmail.com>
 License: GPL-3.0+
 
 Files: debian/*
