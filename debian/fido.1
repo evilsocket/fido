@@ -1,0 +1,43 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" (C) Copyright 2015 Marco Trevisan (Treviño) <marco@ubuntu.com>,
+.\"
+.TH FIDO 1 "July  3, 2015"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.SH NAME
+fido \- a minimalistic C/C++ project generator supporting various templates.
+.SH SYNOPSIS
+.B fido
+.RI " <action> [template] (path)"
+.br
+.SH DESCRIPTION
+.B Fido
+is a tool to generate simple projects folders for projects written
+in C or C++.
+
+It supports both Makefile and CMake based projects in both unix and android
+environments.
+.SH OPTIONS
+Available
+.B actions
+:
+
+ help: Print the usage menu.
+ create: Create a project with the specified template, requires a template and a path.
+ add: Add one or multiple files to the proper folders by their extensions.
+ build: Build the current project.
+ clean: Clean built files for the current project.
+ rebuild: Clean + Build.
+ reset: Available only for certain templates, remote every build generated file.
+
+Available
+.B templates
+:
+
+ android-make-c: Create a native Android C project based on Makefile.
+ android-make-cpp: Create a native Android C++ project based on Makefile.
+ android-ndk-build-c: Create a native Android C project based on the ndk-build utility.
+ cmake-c: Create a C project based on CMake.
+ cmake-cpp: Create a C++ project based on CMake.
+ make-c: Create a C project based on Makefile.
+ make-cpp: Create a C++ project based on Makefile.
