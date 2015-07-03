@@ -1,0 +1,21 @@
+Source: fido
+Section: devel
+Priority: optional
+Maintainer: Marco Trevisan (Treviño) <marco@ubuntu.com>
+Build-Depends: debhelper (>= 9.0.0),
+               dh-python,
+               python-all (>= 2.7),
+               python-setuptools,
+Standards-Version: 3.9.5
+X-Python-Version: >= 2.7
+Homepage: https://github.com/evilsocket/fido
+
+Package: fido
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Description: Minimalistic C/C++ project generator supporting various templates
+ Fido is a tool to generate simple projects folders for projects written
+ in C or C++.
+ .
+ It supports both Makefile and CMake based projects in both unix and android
+ environments.
