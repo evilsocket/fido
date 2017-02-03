@@ -123,4 +123,9 @@ class BaseTemplate(object):
 
             else:
                 # 'touch' it
-                open( filename, 'a').close()
+                target = open( filename, 'a')
+                target.write("#ifdef " + name.upper() + "\n")
+                target.write("#define " + name.upper() + "\n")
+                target.write("\n")
+                target.write("#endif")
+                target.close()
