@@ -126,7 +126,7 @@ class BaseTemplate(object):
                 # add #ifdefs by default to headers
                 target = open( filename, 'a')
                 if ext in ( '.h', '.hpp' ):
-                  target.write("#ifdef " + name.upper() + "_" + ext.upper() + "\n")
+                  target.write("#ifndef " + name.upper() + "_" + ext.upper() + "\n")
                   target.write("#define " + name.upper() + "_" + ext.upper() + "\n")
                   target.write("\n")
                   target.write("#endif")
