@@ -1,7 +1,7 @@
 FIDO
 ==
 
-Fido is a minimalistic, IDE agnostic, C/C++ project generator supporting various toolchains 
+Fido is a minimalistic, IDE and language agnostic project generator supporting various toolchains 
 and build systems.
 
 Installation
@@ -34,6 +34,7 @@ Usage
                   cmake-cpp : Create a C++ project based on CMake.
                      make-c : Create a C project based on Makefile.
                    make-cpp : Create a C++ project based on Makefile.
+                    make-go : Create a Go project based on Makefile.
 
 Example
 ==
