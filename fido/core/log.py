@@ -1,21 +1,20 @@
-# This file is part of Fido.
-#
-# Copyright(c) 2015 Simone Margaritelli
+# This file is part of Fido
+# Copyright (C) 2015 Simone 'evilsocket' Margaritelli
 # evilsocket@gmail.com
-# http://www.evilsocket.net
-#
-# This file may be licensed under the terms of of the
-# GNU General Public License Version 2 (the ``GPL'').
-#
-# Software distributed under the License is distributed
-# on an ``AS IS'' basis, WITHOUT WARRANTY OF ANY KIND, either
-# express or implied. See the GPL for the specific language
-# governing rights and limitations.
-#
-# You should have received a copy of the GPL along with this
-# program. If not, go to http://www.gnu.org/licenses/gpl.html
-# or write to the Free Software Foundation, Inc.,
-# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+# https://evilsocket.net
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Log:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
